@@ -44,7 +44,7 @@
 
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \
-        { 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30 }
+        { 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40 }
 
 /* Set to infinit, which is use in USB mode by default */
 #    define RGB_MATRIX_TIMEOUT RGB_MATRIX_TIMEOUT_INFINITE
@@ -123,3 +123,10 @@
 #define FN_KEY_2 MO(3)
 
 #define MATRIX_IO_DELAY 10
+
+/* RGB Matrix Configuration */
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+#define RGB_MATRIX_DEFAULT_HUE 252
+#define RGB_MATRIX_DEFAULT_SAT 38
+#define RGB_MATRIX_DEFAULT_VAL 255
+#define FORCE_NKRO

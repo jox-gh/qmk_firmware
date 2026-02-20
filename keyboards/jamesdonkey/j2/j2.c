@@ -62,7 +62,7 @@ bool task_kb(void) {
         if (timer_elapsed32(power_on_indicator_timer) > POWER_ON_LED_DURATION) {
             power_on_indicator_timer = 0;
 
-            if (!host_keyboard_led_state().caps_lock) writePin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
+            // if (!host_keyboard_led_state().caps_lock) writePin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
 #ifdef LK_WIRELESS_ENABLE
             writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
             if (get_transport() != TRANSPORT_P2P4) {
@@ -76,7 +76,7 @@ bool task_kb(void) {
             }
 #endif
         } else {
-            writePin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
+            // writePin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
 #ifdef LK_WIRELESS_ENABLE
             writePin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);
             if (get_transport() != TRANSPORT_P2P4) {
@@ -98,3 +98,19 @@ bool lpm_is_kb_idle(void) {
     return power_on_indicator_timer == 0 && !factory_reset_indicating();
 }
 #endif
+
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
+    // RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
+
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(44, 0, 255, 0);
+    } else {
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(44, 0, 0, 0);
+        }
+    }
+    return true;
+}
